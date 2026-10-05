@@ -1,0 +1,317 @@
+[
+  {
+    "id": "class-4-1",
+    "classLevel": 4,
+    "topic": "Equal sharing and multiplication",
+    "column": {
+      "prompt": "There are 14 wheels shared equally by 7 tiny robots. How many wheels does each robot get?",
+      "answer": 2,
+      "explanation": "14 ÷ 7 = 2."
+    },
+    "row": {
+      "prompt": "A battery station has 3 trays with 3 cells in each tray. How many cells altogether?",
+      "answer": 9,
+      "explanation": "3 × 3 = 9."
+    }
+  },
+  {
+    "id": "class-4-2",
+    "classLevel": 4,
+    "topic": "Addition and subtraction",
+    "column": {
+      "prompt": "A rover collects 5 bolts and then 3 more. How many bolts does it have?",
+      "answer": 8,
+      "explanation": "5 + 3 = 8."
+    },
+    "row": {
+      "prompt": "There are 12 cells. The rover uses 7. How many remain?",
+      "answer": 5,
+      "explanation": "12 − 7 = 5."
+    }
+  },
+  {
+    "id": "class-4-3",
+    "classLevel": 4,
+    "topic": "Fractions",
+    "column": {
+      "prompt": "What is one half of 12 connector pins?",
+      "answer": 6,
+      "explanation": "12 ÷ 2 = 6."
+    },
+    "row": {
+      "prompt": "What is one quarter of 16 batteries?",
+      "answer": 4,
+      "explanation": "16 ÷ 4 = 4."
+    }
+  },
+  {
+    "id": "class-5-4",
+    "classLevel": 5,
+    "topic": "Factors and multiples",
+    "column": {
+      "prompt": "Find the greatest common factor of 12 and 18.",
+      "answer": 6,
+      "explanation": "The common factors are 1, 2, 3 and 6; the greatest is 6."
+    },
+    "row": {
+      "prompt": "Find the least common multiple of 2 and 3.",
+      "answer": 6,
+      "explanation": "The first shared positive multiple is 6."
+    }
+  },
+  {
+    "id": "class-5-5",
+    "classLevel": 5,
+    "topic": "Decimals",
+    "column": {
+      "prompt": "A wire is 2.5 m long and another is 1.5 m. Find their total length in metres.",
+      "answer": 4,
+      "explanation": "2.5 + 1.5 = 4."
+    },
+    "row": {
+      "prompt": "Calculate 7.5 − 2.5.",
+      "answer": 5,
+      "explanation": "7.5 − 2.5 = 5."
+    }
+  },
+  {
+    "id": "class-5-6",
+    "classLevel": 5,
+    "topic": "Area and perimeter",
+    "column": {
+      "prompt": "A square circuit tile has side 2 cm. Find its perimeter in cm.",
+      "answer": 8,
+      "explanation": "4 × 2 = 8 cm."
+    },
+    "row": {
+      "prompt": "A rectangle measures 3 cm by 2 cm. Find its area in square cm.",
+      "answer": 6,
+      "explanation": "3 × 2 = 6 square cm."
+    }
+  },
+  {
+    "id": "class-6-7",
+    "classLevel": 6,
+    "topic": "Integers",
+    "column": {
+      "prompt": "A rover is at x = 2 and moves 6 units left. What is its new x-coordinate?",
+      "answer": -4,
+      "explanation": "2 − 6 = −4."
+    },
+    "row": {
+      "prompt": "A probe is at y = −3 and moves 5 units up. What is its new y-coordinate?",
+      "answer": 2,
+      "explanation": "−3 + 5 = 2."
+    }
+  },
+  {
+    "id": "class-6-8",
+    "classLevel": 6,
+    "topic": "Ratios",
+    "column": {
+      "prompt": "Red and blue LEDs are in the ratio 2:3. There are 10 LEDs in total. How many are red?",
+      "answer": 4,
+      "explanation": "There are 5 ratio parts. Each is 10 ÷ 5 = 2, so red LEDs = 2 × 2 = 4."
+    },
+    "row": {
+      "prompt": "Simplify 24 ÷ 3.",
+      "answer": 8,
+      "explanation": "24 ÷ 3 = 8."
+    }
+  },
+  {
+    "id": "class-6-9",
+    "classLevel": 6,
+    "topic": "Algebra",
+    "column": {
+      "prompt": "Solve x + 7 = 10.",
+      "answer": 3,
+      "explanation": "Subtract 7 from both sides: x = 3."
+    },
+    "row": {
+      "prompt": "Solve y − 4 = −6.",
+      "answer": -2,
+      "explanation": "Add 4 to both sides: y = −2."
+    }
+  },
+  {
+    "id": "class-7-10",
+    "classLevel": 7,
+    "topic": "Percentages and multiplication",
+    "column": {
+      "prompt": "A moving rover can change speed when a force acts. The COLUMN is 40% of 20.",
+      "answer": 8,
+      "explanation": "40% of 20 = (40 ÷ 100) × 20 = 8."
+    },
+    "row": {
+      "prompt": "Three motion trials last 3 s each; total time gives the ROW.",
+      "answer": 9,
+      "explanation": "3 × 3 = 9 seconds."
+    }
+  },
+  {
+    "id": "class-7-11",
+    "classLevel": 7,
+    "topic": "Simple equations",
+    "column": {
+      "prompt": "Solve 3x = −12.",
+      "answer": -4,
+      "explanation": "Divide both sides by 3: x = −4."
+    },
+    "row": {
+      "prompt": "Solve 2y + 3 = 13.",
+      "answer": 5,
+      "explanation": "Subtract 3, then divide by 2: y = 5."
+    }
+  },
+  {
+    "id": "class-7-12",
+    "classLevel": 7,
+    "topic": "Exponents and integers",
+    "column": {
+      "prompt": "Calculate 2³.",
+      "answer": 8,
+      "explanation": "2³ = 2 × 2 × 2 = 8."
+    },
+    "row": {
+      "prompt": "Calculate (−3) × 2.",
+      "answer": -6,
+      "explanation": "A negative times a positive is negative: −3 × 2 = −6."
+    }
+  },
+  {
+    "id": "class-8-13",
+    "classLevel": 8,
+    "topic": "Linear equations",
+    "column": {
+      "prompt": "Solve 2x − 5 = −15.",
+      "answer": -5,
+      "explanation": "Add 5: 2x = −10. Divide by 2: x = −5."
+    },
+    "row": {
+      "prompt": "Solve 3y + 2 = 2.",
+      "answer": 0,
+      "explanation": "Subtract 2: 3y = 0. Thus y = 0."
+    }
+  },
+  {
+    "id": "class-8-14",
+    "classLevel": 8,
+    "topic": "Squares and cubes",
+    "column": {
+      "prompt": "Find the positive square root of 49.",
+      "answer": 7,
+      "explanation": "7 × 7 = 49, so √49 = 7."
+    },
+    "row": {
+      "prompt": "Find the cube root of −27.",
+      "answer": -3,
+      "explanation": "(−3)³ = −27, so the cube root is −3."
+    }
+  },
+  {
+    "id": "class-8-15",
+    "classLevel": 8,
+    "topic": "Rational numbers",
+    "column": {
+      "prompt": "Calculate (−3/4) × 8.",
+      "answer": -6,
+      "explanation": "(−3 × 8) ÷ 4 = −6."
+    },
+    "row": {
+      "prompt": "Calculate (1/2 + 1/4) × 8.",
+      "answer": 6,
+      "explanation": "1/2 + 1/4 = 3/4, and (3/4) × 8 = 6."
+    }
+  },
+  {
+    "id": "class-9-16",
+    "classLevel": 9,
+    "topic": "Coordinate geometry",
+    "column": {
+      "prompt": "A point lies 5 units left of the y-axis. What is its x-coordinate?",
+      "answer": -5,
+      "explanation": "Left of the y-axis means a negative x-coordinate: −5."
+    },
+    "row": {
+      "prompt": "The same point lies 4 units below the x-axis. What is its y-coordinate?",
+      "answer": -4,
+      "explanation": "Below the x-axis means a negative y-coordinate: −4."
+    }
+  },
+  {
+    "id": "class-9-17",
+    "classLevel": 9,
+    "topic": "Polynomials",
+    "column": {
+      "prompt": "Evaluate p(t) = t² − 5 at t = 2.",
+      "answer": -1,
+      "explanation": "p(2) = 4 − 5 = −1."
+    },
+    "row": {
+      "prompt": "Evaluate q(t) = 2t + 1 at t = 3.",
+      "answer": 7,
+      "explanation": "q(3) = 6 + 1 = 7."
+    }
+  },
+  {
+    "id": "class-9-18",
+    "classLevel": 9,
+    "topic": "Statistics",
+    "column": {
+      "prompt": "Find the mean of 2, 4 and 6.",
+      "answer": 4,
+      "explanation": "Mean = (2 + 4 + 6) ÷ 3 = 4."
+    },
+    "row": {
+      "prompt": "Find the median of −5, −2 and 1.",
+      "answer": -2,
+      "explanation": "The ordered middle value is −2."
+    }
+  },
+  {
+    "id": "class-10-19",
+    "classLevel": 10,
+    "topic": "Pair of linear equations",
+    "column": {
+      "prompt": "For x + y = 3 and x − y = −7, find x.",
+      "answer": -2,
+      "explanation": "Add the equations: 2x = −4, so x = −2."
+    },
+    "row": {
+      "prompt": "For the same equations, find y.",
+      "answer": 5,
+      "explanation": "Substitute x = −2 into x + y = 3: y = 5."
+    }
+  },
+  {
+    "id": "class-10-20",
+    "classLevel": 10,
+    "topic": "Arithmetic progressions",
+    "column": {
+      "prompt": "Find the 4th term of the AP −8, −5, −2, …",
+      "answer": 1,
+      "explanation": "a₄ = a + 3d = −8 + 3 × 3 = 1."
+    },
+    "row": {
+      "prompt": "Find the sum of the first 3 terms of that AP.",
+      "answer": -15,
+      "explanation": "−8 + (−5) + (−2) = −15."
+    }
+  },
+  {
+    "id": "class-10-21",
+    "classLevel": 10,
+    "topic": "Quadratic equations and trigonometry",
+    "column": {
+      "prompt": "Find the smaller root of x² − 5x + 6 = 0.",
+      "answer": 2,
+      "explanation": "(x − 2)(x − 3) = 0. The roots are 2 and 3; the smaller is 2."
+    },
+    "row": {
+      "prompt": "Calculate 10 × sin(30°).",
+      "answer": 5,
+      "explanation": "sin(30°) = 1/2, so 10 × 1/2 = 5."
+    }
+  }
+]

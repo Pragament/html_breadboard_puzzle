@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Circuit Quest · Math breadboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="./">⚡ Circuit Quest</a><span>Math → coordinates → circuits</span></header>
+  <main>
+    <section class="intro"><p class="eyebrow">THE MATH LAB</p><h1>Build a circuit.<br>Solve your way there.</h1><p>Find the column (x) and row (y), then watch your answer light up the breadboard.</p></section>
+    <div class="toolbar"><label>CBSE class <select id="class-select"></select></label><label>Grid gap <input id="gap" type="range" min="24" max="56" value="36"><output id="gap-value">36 px</output></label><button id="restart" class="secondary">Restart class</button></div>
+    <div class="workspace">
+      <section class="card quiz" aria-labelledby="quiz-title"><div class="section-head"><span class="eyebrow">YOUR NEXT CONNECTION</span><span id="progress"></span></div><h2 id="quiz-title">Loading questions…</h2><p id="topic" class="topic"></p><div id="puzzles"></div><form id="answer-form"><div class="inputs"><label>Column · x<input id="column" type="number" step="any" required autocomplete="off"></label><label>Row · y<input id="row" type="number" step="any" required autocomplete="off"></label></div><button type="submit" id="submit">Check & connect ↗</button></form><button id="reveal" class="text-button">View answer & explanation</button><div id="feedback" role="status" aria-live="polite"></div><div id="explanation" hidden></div><button id="next" hidden>Next question →</button></section>
+      <section class="card board-card" aria-labelledby="board-title"><div class="section-head"><h2 id="board-title">Your breadboard</h2><span class="badge" id="score">0 correct</span></div><p class="muted">True Cartesian grid · column = x · row = y</p><div class="board-scroll"><svg id="board" role="img" aria-label="Cartesian breadboard with origin and plotted circuit connections"></svg></div><div class="legend"><span><i class="dot good"></i>Correct connection</span><span><i class="dot revealed"></i>Answer revealed</span><span>Origin: (0, 0)</span></div><p id="board-status" class="muted" aria-live="polite">Solve your first question to lay a wire.</p></section>
+    </div>
+    <section class="card tester"><div><p class="eyebrow">CHECK YOUR CONNECTIONS</p><h2>Continuity tester</h2><p class="muted">Tap a question to test it. Revealed answers always fail continuity.</p></div><div class="test-panel"><span id="led" class="led"></span><strong id="test-status" role="status">Select a question</strong><label class="sound"><input type="checkbox" id="sound" checked> Buzzer</label></div><div id="question-list" class="question-list"></div></section>
+    <footer>Made for curious minds · CBSE-aligned practice, Classes 4–10</footer>
+  </main>
+</body>
+</html>

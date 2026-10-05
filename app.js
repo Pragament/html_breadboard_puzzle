@@ -19,6 +19,7 @@ function start() {
   results = questions.map(() => ({ answered:false, revealed:false, correct:false }));
   index = 0; selectedQuestion = null; totalResult = false;
   $('led').className = 'led'; $('test-status').textContent = 'Select a question';
+  window.dispatchEvent(new CustomEvent('continuity-test',{detail:{pass:false,label:'No quiz connection selected'}}));
   renderQuestion(); renderBoard(); renderList();
 }
 function renderQuestion() {
@@ -78,6 +79,7 @@ function showTotalResult() {
   $('led').className=`led ${pass?'pass':'fail'}`;
   $('test-status').textContent=`Total result: ${pass?'PASS · complete circuit':'FAIL · circuit has broken wires'}`;
   $('board').closest('.board-card').scrollIntoView({block:'nearest',behavior:'instant'});
+  window.dispatchEvent(new CustomEvent('continuity-test',{detail:{pass,label:'Total quiz result'}}));
   buzz(pass);
 }
 $('class-select').addEventListener('change',start); $('restart').addEventListener('click',start);
@@ -172,7 +174,7 @@ function renderBoard() {
   }
 }
 function buzz(pass) {
-  if(!$('sound').checked)return;
+  if(!$('sound').checked || window.circuitLabPowerOff)return;
   try {
     audioContext ||= new (window.AudioContext||window.webkitAudioContext)(); audioContext.resume();
     const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
@@ -187,6 +189,7 @@ function renderList() {
     const selected=results[selectedQuestion],pass=selected.correct&&!selected.revealed;
     $('led').className=`led ${pass?'pass':'fail'}`;
     $('test-status').textContent=pass?`Q${selectedQuestion+1}: PASS · continuity`:`Q${selectedQuestion+1}: FAIL · ${selected.revealed?'answer revealed':'not answered'}`;
+    window.dispatchEvent(new CustomEvent('continuity-test',{detail:{pass,label:`Q${selectedQuestion+1}: ${selected.revealed?'answer revealed':selected.correct?'correct':'unanswered'}`}}));
   }
   $('question-list').replaceChildren();
   questions.forEach((q,i)=> {

@@ -25,6 +25,8 @@ Push these files to your GitHub repository. In the repository's **Settings â†’ P
 - Adjust grid spacing and scroll the breadboard to explore both positive and negative axes.
 - Click any question in the continuity tester to animate its incoming wire from the previous question (or the origin for Q1). Revealed answers create a visible wire gap from the previous question, and current stops at that break. After finishing, the total result automatically traces the whole route from origin to the last question. Use **Animate total quiz result** to replay it. Red traces after the first break show disconnected parts of the route. The board highlights the selected endpoint; the LED grades that question independently of earlier breaks. Correct answers pass with a green LED; revealed or unanswered questions fail with a red LED. The optional buzzer uses browser audio.
 
+The continuity tester also includes a component lab with an idealized four-cell supply (2S2P by default), an SPST power switch, 3.3 V converter, common cathode / common anode RGB LEDs with six color resistors, and active / passive piezo buzzer experiments. Adjust wiring, color logic, resistance, electron / conventional flow and waveform frequency. Selecting a quiz connection links its pass/fail result to the lab. Audio is opt-in and stops when the page is hidden. Expand the lessons for battery comparisons, LED polarity, resistance, switches and piezo sound generation.
+
 The question bank contains 21 original practice questions (three per class), covering selected CBSE-aligned topics. It is a starter bank, not complete syllabus coverage. The tester is an educational simulation, not an electrical circuit simulator. Progress is held in memory and resets on reload.
 
 ## Add questions
@@ -37,6 +39,7 @@ Edit `data/questions.json`. Each question needs a unique `id`, `classLevel` (4â€
 - `styles.css`: responsive layout and visual styles
 - `app.js`: quiz, breadboard plotting and continuity tester
 - `data/questions.json`: editable question bank
+- `circuit-lab.js`: interactive electronics lesson in the continuity tester
 
 Google Fonts are optional; system fonts work when unavailable. All quiz functionality runs without external libraries.
 

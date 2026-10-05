@@ -3,3 +3,11 @@
 /* Keep the oversized coordinate surface inside its own scroll area. */
 .workspace > .card{min-width:0}
 @media(max-width:850px){.workspace{grid-template-columns:minmax(0,1fr)}}
+
+.current-flow{stroke-dasharray:8 6;animation:current-flow .7s linear infinite;pointer-events:none}
+@keyframes current-flow{to{stroke-dashoffset:-14}}
+@media(prefers-reduced-motion:reduce){.current-flow{animation:none}}
+
+.result-trace{stroke-dasharray:1;stroke-dashoffset:1;animation:result-trace .8s linear forwards;pointer-events:none}
+@keyframes result-trace{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.result-trace{animation:none;stroke-dashoffset:0}}

@@ -1,6 +1,6 @@
 'use strict';
 const $ = id => document.getElementById(id);
-let allQuestions = [], questions = [], results = [], index = 0, revealed = false, completed = false, audioContext;
+let allQuestions = [], questions = [], results = [], index = 0, revealed = false, completed = false, audioContext, selectedQuestion = null, totalResult = false;
 const ns = 'http://www.w3.org/2000/svg';
 function svgElement(tag, attrs, text) {
   const element = document.createElementNS(ns, tag);
@@ -12,7 +12,7 @@ function svgElement(tag, attrs, text) {
 function start() {
   questions = allQuestions.filter(q => q.classLevel === Number($('class-select').value));
   results = questions.map(() => ({ answered:false, revealed:false, correct:false }));
-  index = 0;
+  index = 0; selectedQuestion = null; totalResult = false;
   $('led').className = 'led'; $('test-status').textContent = 'Select a question';
   renderQuestion(); renderBoard(); renderList();
 }
@@ -48,7 +48,7 @@ $('reveal').addEventListener('click',()=> {
   if (completed || index >= questions.length) return;
   revealed=true; results[index].revealed=true; showExplanation();
   $('feedback').textContent='Answer revealed. Enter both coordinates to connect and continue. This connection will fail continuity.';
-  $('reveal').hidden=true; renderList();
+  $('reveal').hidden=true; renderBoard(); renderList();
 });
 $('answer-form').addEventListener('submit',event=> {
   event.preventDefault(); if(completed || index>=questions.length) return;
@@ -64,9 +64,43 @@ $('answer-form').addEventListener('submit',event=> {
   showExplanation(); $('next').hidden=false; $('next').textContent=index===questions.length-1 ? 'See results →' : 'Next question →';
   renderBoard(); renderList();
 });
-$('next').addEventListener('click',()=>{index++;renderQuestion();});
+$('next').addEventListener('click',()=>{index++;renderQuestion();if(index>=questions.length)showTotalResult();});
+$('total-result').addEventListener('click',showTotalResult);
+function showTotalResult() {
+  if(!results.every(r=>r.answered))return;
+  totalResult=true; selectedQuestion=null; renderBoard(); renderList();
+  const pass=results.every(r=>r.correct);
+  $('led').className=`led ${pass?'pass':'fail'}`;
+  $('test-status').textContent=`Total result: ${pass?'PASS · complete circuit':'FAIL · circuit has broken wires'}`;
+  $('board').closest('.board-card').scrollIntoView({block:'nearest',behavior:'instant'});
+  buzz(pass);
+}
 $('class-select').addEventListener('change',start); $('restart').addEventListener('click',start);
 $('gap').addEventListener('input',()=>{$('gap-value').textContent=`${$('gap').value} px`;renderBoard();});
+// Split an orthogonal wire around its midpoint, leaving a real visible gap.
+function wireGeometry(points, broken) {
+  const lengths=points.slice(1).map((p,i)=>Math.hypot(p[0]-points[i][0],p[1]-points[i][1]));
+  const total=lengths.reduce((a,b)=>a+b,0);
+  const at=distance=> {
+    let remaining=distance;
+    for(let i=0;i<lengths.length;i++) {
+      if(lengths[i]>0 && remaining<=lengths[i]) {
+        const ratio=remaining/lengths[i];
+        return points[i].map((v,j)=>v+(points[i+1][j]-v)*ratio);
+      }
+      remaining-=lengths[i];
+    }
+    return points[points.length-1];
+  };
+  const slice=(start,end)=> {
+    const vertices=[at(start)]; let distance=0;
+    lengths.forEach((length,i)=>{distance+=length;if(distance>start && distance<end)vertices.push(points[i+1]);});
+    vertices.push(at(end));
+    return vertices.map((p,i)=>`${i?'L':'M'} ${p[0]} ${p[1]}`).join(' ');
+  };
+  const halfGap=Math.min(12,total/3),middle=total/2;
+  return {path:broken?`${slice(0,middle-halfGap)} ${slice(middle+halfGap,total)}`:slice(0,total),beforeBreak:slice(0,middle-halfGap),breakPoint:at(middle)};
+}
 function renderBoard() {
   const gap=Number($('gap').value), pad=40;
   const xs=questions.map(q=>q.column.answer), ys=questions.map(q=>q.row.answer);
@@ -82,19 +116,46 @@ function renderBoard() {
   for(let x=xmin;x<=xmax;x++)svgElement('text',{x:px(x),y:py(0)+15,fill:'#5e7157','font-size':10,'text-anchor':'middle'},x);
   for(let y=ymin;y<=ymax;y++)if(y!==0)svgElement('text',{x:px(0)-9,y:py(y)+3,fill:'#5e7157','font-size':10,'text-anchor':'end'},y);
   svgElement('text',{x:width-15,y:py(0)-8,fill:'#436b40','font-size':12},'x'); svgElement('text',{x:px(0)+10,y:20,fill:'#436b40','font-size':12},'y');
-  let previous={x:0,y:0};
+  let previous={x:0,y:0}, flowing=true, firstBreak=null;
   results.forEach((r,i)=> {
-    if(!r.answered)return;
+    const inTest=i===selectedQuestion;
+    if(!r.answered && !r.revealed) {
+      if(inTest && firstBreak===null) { firstBreak=i; flowing=false; }
+      return;
+    }
     const q=questions[i], x=q.column.answer,y=q.row.answer,color=r.correct?'#216c50':'#be663d';
-    svgElement('path',{d:`M ${px(previous.x)} ${py(previous.y)} L ${px(x)} ${py(previous.y)} L ${px(x)} ${py(y)}`,fill:'none',stroke:color,'stroke-width':3.5,'stroke-linejoin':'round','stroke-dasharray':r.revealed?'6 4':'none',opacity:.8});
+    const points=[[px(previous.x),py(previous.y)],[px(x),py(previous.y)],[px(x),py(y)]];
+    const wire=wireGeometry(points,r.revealed);
+    svgElement('path',{d:wire.path,fill:'none',stroke:color,'stroke-width':3.5,'stroke-linejoin':'round',opacity:selectedQuestion===null&&!totalResult?.8:.3,'data-wire':i});
+    if(inTest) {
+      svgElement('path',{d:r.revealed?wire.beforeBreak:wire.path,fill:'none',stroke:'#f0b429','stroke-width':5,'stroke-linejoin':'round',class:'current-flow','data-flow':i});
+    }
+    if(totalResult) {
+      if(r.revealed)flowing=false;
+      svgElement('path',{d:wire.path,fill:'none',stroke:flowing?'#f0b429':'#d85e42','stroke-width':5,'stroke-linejoin':'round',class:'result-trace',pathLength:1,style:`animation-delay:${i*.8}s`,'data-result-trace':i});
+      if(r.revealed && firstBreak===null)firstBreak=i;
+    }
+    if(r.revealed) {
+      if(inTest && firstBreak===null) {firstBreak=i; flowing=false;}
+      svgElement('circle',{cx:wire.breakPoint[0],cy:wire.breakPoint[1],r:9,fill:'#fffefa',stroke:'#be663d','stroke-width':2,'data-break':i});
+      svgElement('text',{x:wire.breakPoint[0],y:wire.breakPoint[1]+4,fill:'#be663d','font-size':13,'text-anchor':'middle'},'×');
+    }
     const point=svgElement('circle',{cx:px(x),cy:py(y),r:7,fill:color,stroke:'#fffefa','stroke-width':2});
-    const title=document.createElementNS(ns,'title');title.textContent=`Question ${i+1}: (${x}, ${y}) · ${r.correct?'correct':'revealed'}`;point.append(title);
+    const title=document.createElementNS(ns,'title');title.textContent=`Question ${i+1}: (${x}, ${y}) · ${r.correct?'correct':'revealed · broken wire'}`;point.append(title);
+    if(i===selectedQuestion)svgElement('circle',{cx:px(x),cy:py(y),r:13,fill:'none',stroke:'#e4a126','stroke-width':3,'data-selected':'true'});
     svgElement('text',{x:px(x)+10,y:py(y)-10,fill:color,'font-size':12,'font-weight':700},`Q${i+1}`);previous={x,y};
   });
-  svgElement('circle',{cx:px(0),cy:py(0),r:5,fill:'#344e36',stroke:'#fff','stroke-width':1});
+  svgElement('circle',{cx:px(0),cy:py(0),r:5,fill:'#344e36',stroke:'#fff','stroke-width':1,'data-origin':'true'});
   $('score').textContent=`${results.filter(r=>r.correct).length} correct`;
   const answered=results.filter(r=>r.answered).length;
-  $('board-status').textContent=answered?`${answered} connection${answered===1?'':'s'} plotted. Wires start at (0, 0) and join each solved coordinate in order.`:'Solve your first question to lay a wire.';
+  if(totalResult) {
+    $('board-status').textContent=`Total quiz result: tracing (0, 0) → Q${questions.length}. ${firstBreak===null?'All connections pass.':`Current breaks before Q${firstBreak+1}; red traces show the remaining disconnected route.`}`;
+  } else if(selectedQuestion!==null) {
+    const source=selectedQuestion===0?'(0, 0)':`Q${selectedQuestion}`;
+    $('board-status').textContent=firstBreak===null?`Current flows from ${source} to Q${selectedQuestion+1}.`:`Testing ${source} → Q${selectedQuestion+1}: ${results[selectedQuestion].revealed?'current stops at the broken wire':'unanswered · open circuit'}.`;
+  } else {
+    $('board-status').textContent=answered?`${answered} connection${answered===1?'':'s'} plotted. Wires start at (0, 0) and join each solved coordinate in order.`:'Solve your first question to lay a wire.';
+  }
 }
 function buzz(pass) {
   if(!$('sound').checked)return;
@@ -107,15 +168,27 @@ function buzz(pass) {
   } catch { /* Visual tester remains available when audio is unsupported. */ }
 }
 function renderList() {
+  $('total-result').disabled=!results.length || !results.every(r=>r.answered);
+  if(selectedQuestion!==null) {
+    const selected=results[selectedQuestion],pass=selected.correct&&!selected.revealed;
+    $('led').className=`led ${pass?'pass':'fail'}`;
+    $('test-status').textContent=pass?`Q${selectedQuestion+1}: PASS · continuity`:`Q${selectedQuestion+1}: FAIL · ${selected.revealed?'answer revealed':'not answered'}`;
+  }
   $('question-list').replaceChildren();
   questions.forEach((q,i)=> {
-    const r=results[i],button=document.createElement('button');button.className='question-test';
+    const r=results[i],button=document.createElement('button');button.className=`question-test${i===selectedQuestion?' selected':''}`;button.setAttribute('aria-pressed',i===selectedQuestion);
     button.textContent=`Q${i+1} · ${q.topic}`;
     const small=document.createElement('small');small.textContent=r.revealed?'Answer revealed · continuity fails':r.correct?'Correct · ready to test':'Unanswered · open circuit';button.append(small);
     button.addEventListener('click',()=> {
-      document.querySelectorAll('.question-test').forEach(b=>b.classList.remove('selected'));button.classList.add('selected');
-      const pass=r.correct&&!r.revealed;$('led').className=`led ${pass?'pass':'fail'}`;
-      $('test-status').textContent=pass?`Q${i+1}: PASS · continuity`:`Q${i+1}: FAIL · ${r.revealed?'answer revealed':'not answered'}`;buzz(pass);
+      selectedQuestion=i; totalResult=false; renderBoard(); renderList();
+      const target=Array.from($('board').querySelectorAll('[data-break]')).find(node=>Number(node.getAttribute('data-break'))===i) || $('board').querySelector('[data-selected]') || $('board').querySelector('[data-origin]');
+      if(target) {
+        const scroll=$('board').parentElement;
+        scroll.scrollLeft=Number(target.getAttribute('cx'))-scroll.clientWidth/2;
+        scroll.scrollTop=Number(target.getAttribute('cy'))-scroll.clientHeight/2;
+      }
+      $('board').closest('.board-card').scrollIntoView({block:'nearest',behavior:'instant'});
+      buzz(r.correct&&!r.revealed);
     }); $('question-list').append(button);
   });
 }

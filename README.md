@@ -23,7 +23,7 @@ Push these files to your GitHub repository. In the repository's **Settings → P
 - View an answer with explanations if needed, then enter the coordinates to continue. Revealed answers do not count as correct.
 - Each submitted pair adds a wire from the previous coordinate, starting at (0, 0).
 - Adjust grid spacing and scroll the breadboard to explore both positive and negative axes.
-- Click any question in the continuity tester. Correct answers pass with a green LED; revealed or unanswered questions fail with a red LED. The optional buzzer uses browser audio.
+- Click any question in the continuity tester to animate its incoming wire from the previous question (or the origin for Q1). Revealed answers create a visible wire gap from the previous question, and current stops at that break. After finishing, the total result automatically traces the whole route from origin to the last question. Use **Animate total quiz result** to replay it. Red traces after the first break show disconnected parts of the route. The board highlights the selected endpoint; the LED grades that question independently of earlier breaks. Correct answers pass with a green LED; revealed or unanswered questions fail with a red LED. The optional buzzer uses browser audio.
 
 The question bank contains 21 original practice questions (three per class), covering selected CBSE-aligned topics. It is a starter bank, not complete syllabus coverage. The tester is an educational simulation, not an electrical circuit simulator. Progress is held in memory and resets on reload.
 

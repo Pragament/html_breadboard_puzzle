@@ -121,6 +121,14 @@ function renderBoard() {
   for(let x=xmin;x<=xmax;x++)svgElement('text',{x:px(x),y:py(0)+15,fill:'#5e7157','font-size':10,'text-anchor':'middle'},x);
   for(let y=ymin;y<=ymax;y++)if(y!==0)svgElement('text',{x:px(0)-9,y:py(y)+3,fill:'#5e7157','font-size':10,'text-anchor':'end'},y);
   svgElement('text',{x:width-15,y:py(0)-8,fill:'#436b40','font-size':12},'x'); svgElement('text',{x:px(0)+10,y:20,fill:'#436b40','font-size':12},'y');
+  for (const [label,x,y] of [
+    ['I (+,+)',xmax/2,ymax/2],
+    ['II (−,+)',xmin/2,ymax/2],
+    ['III (−,−)',xmin/2,ymin/2],
+    ['IV (+,−)',xmax/2,ymin/2]
+  ]) {
+    svgElement('text',{x:px(x),y:py(y),fill:'#607b52','font-size':16,'font-weight':600,'text-anchor':'middle',stroke:'#f0f3e8','stroke-width':5,'paint-order':'stroke','data-quadrant':label},label);
+  }
   let previous={x:0,y:0}, flowing=true, firstBreak=null;
   results.forEach((r,i)=> {
     const inTest=i===selectedQuestion;
@@ -148,7 +156,8 @@ function renderBoard() {
     const point=svgElement('circle',{cx:px(x),cy:py(y),r:7,fill:color,stroke:'#fffefa','stroke-width':2});
     const title=document.createElementNS(ns,'title');title.textContent=`Question ${i+1}: (${x}, ${y}) · ${r.correct?'correct':'revealed · broken wire'}`;point.append(title);
     if(i===selectedQuestion)svgElement('circle',{cx:px(x),cy:py(y),r:13,fill:'none',stroke:'#e4a126','stroke-width':3,'data-selected':'true'});
-    svgElement('text',{x:px(x)+10,y:py(y)-10,fill:color,'font-size':12,'font-weight':700},`Q${i+1}`);previous={x,y};
+    const labelOnLeft=xmax-x<4;
+    svgElement('text',{x:px(x)+(labelOnLeft?-10:10),y:py(y)-12,fill:color,'font-size':12,'font-weight':700,'text-anchor':labelOnLeft?'end':'start',stroke:'#f0f3e8','stroke-width':3,'paint-order':'stroke','data-point-label':i},`Q${i+1} (${x}, ${y})`);previous={x,y};
   });
   svgElement('circle',{cx:px(0),cy:py(0),r:5,fill:'#344e36',stroke:'#fff','stroke-width':1,'data-origin':'true'});
   $('score').textContent=`${results.filter(r=>r.correct).length} correct`;

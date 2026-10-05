@@ -18,7 +18,7 @@ Push these files to your GitHub repository. In the repository's **Settings → P
 
 ## How to play
 
-- Choose Class 4–10. Changing class or restarting clears the current attempt.
+- Choose Class 4–10. Questions are shuffled each time a quiz starts. Changing class or restarting clears the current attempt and shuffles again.
 - Solve the single displayed question and enter both coordinates. Incorrect answers stay on the question until corrected.
 - View an answer with explanations if needed, then enter the coordinates to continue. Revealed answers do not count as correct.
 - Each submitted pair adds a wire from the previous coordinate, starting at (0, 0).

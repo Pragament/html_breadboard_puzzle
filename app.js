@@ -11,6 +11,11 @@ function svgElement(tag, attrs, text) {
 }
 function start() {
   questions = allQuestions.filter(q => q.classLevel === Number($('class-select').value));
+  // Fisher–Yates shuffles the filtered copy without changing the question bank.
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
   results = questions.map(() => ({ answered:false, revealed:false, correct:false }));
   index = 0; selectedQuestion = null; totalResult = false;
   $('led').className = 'led'; $('test-status').textContent = 'Select a question';

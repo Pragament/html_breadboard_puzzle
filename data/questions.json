@@ -313,5 +313,95 @@
       "answer": 5,
       "explanation": "sin(30°) = 1/2, so 10 × 1/2 = 5."
     }
+  },
+  {
+    "id": "class-4-22",
+    "classLevel": 4,
+    "topic": "Arithmetic and Place Value",
+    "column": {
+      "prompt": "Evaluate: 645 − 639.",
+      "answer": 6,
+      "explanation": "645 − 639 = 6."
+    },
+    "row": {
+      "prompt": "What is the units digit of 2222 + 1?",
+      "answer": 3,
+      "explanation": "2222 + 1 = 2223; the units digit is 3."
+    }
+  },
+  {
+    "id": "class-5-23",
+    "classLevel": 5,
+    "topic": "Fractions and Operations",
+    "column": {
+      "prompt": "Calculate 150 ÷ 15.",
+      "answer": 10,
+      "explanation": "150 ÷ 15 = 10."
+    },
+    "row": {
+      "prompt": "How many lines of symmetry does a rectangle have?",
+      "answer": 2,
+      "explanation": "A standard non-square rectangle has 2 lines of symmetry."
+    }
+  },
+  {
+    "id": "class-7-24",
+    "classLevel": 7,
+    "topic": "Algebraic Expressions",
+    "column": {
+      "prompt": "Find the value of 2a − 5 when a = 7.",
+      "answer": 9,
+      "explanation": "2(7) − 5 = 14 − 5 = 9."
+    },
+    "row": {
+      "prompt": "Find the value of 10 − 2b when b = 3.",
+      "answer": 4,
+      "explanation": "10 − 2(3) = 10 − 6 = 4."
+    }
+  },
+  {
+    "id": "class-8-25",
+    "classLevel": 8,
+    "topic": "Number Properties and Polygons",
+    "column": {
+      "prompt": "Find the least common multiple (LCM) of 4 and 6.",
+      "answer": 12,
+      "explanation": "The smallest positive number divisible by both 4 and 6 is 12."
+    },
+    "row": {
+      "prompt": "How many lines of symmetry does a square have?",
+      "answer": 4,
+      "explanation": "A square has 4 lines of symmetry."
+    }
+  },
+  {
+    "id": "class-9-26",
+    "classLevel": 9,
+    "topic": "Circles and Tangents",
+    "column": {
+      "prompt": "If a circle has diameter 18 cm, what is its radius in cm?",
+      "answer": 9,
+      "explanation": "Radius = 18 ÷ 2 = 9 cm."
+    },
+    "row": {
+      "prompt": "How many tangents can be drawn to a circle from a single external point?",
+      "answer": 2,
+      "explanation": "Exactly 2 tangents can be drawn from an external point to a circle."
+    }
+  },
+  {
+    "id": "class-10-27",
+    "classLevel": 10,
+    "topic": "Polynomials and Trigonometry",
+    "column": {
+      "prompt": "Find the sum of the zeros of x² − 5x + 6.",
+      "answer": 5,
+      "explanation": "Sum of zeros = −(−5)/1 = 5."
+    },
+    "row": {
+      "prompt": "Evaluate sec(60°).",
+      "answer": 2,
+      "explanation": "sec(60°) = 1 / cos(60°) = 1 / (1/2) = 2."
+    }
   }
 ]
